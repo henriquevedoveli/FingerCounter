@@ -9,7 +9,7 @@
 import cv2
 import time
 import os
-import HandTracking as ht 
+import handTracking as ht 
 
 ###############
 # setando configurancoes da camera
@@ -24,7 +24,7 @@ cap.set(4, hCam)
 
 
 pTime = 0
-detector = ht.handDetector(detectionCon=detectionCon )
+detector = ht.Detector(detectionCon=detectionCon )
 
 tipIds = [4,8,12,16,20] #thumb, index, middle, ring, pinky
 
