@@ -1,8 +1,8 @@
-# GestureTracker
+# Gesture Tracker
 
 
 ## Description
-_**GestureTracker**_ is a Python project that uses computer vision techniques to track and recognize hand gestures in real-time webcam feed. It leverages the power of the MediaPipe library for hand tracking and utilizes OpenCV for visualization and interaction. This project provides an interactive experience for detecting raised fingers and recognizing different hand positions, making it suitable for applications like gesture-controlled interfaces and interactive experiences.
+_**Gesture Tracker**_ is a Python project that uses computer vision techniques to track and recognize hand gestures in real-time webcam feed. It leverages the power of the MediaPipe library for hand tracking and utilizes OpenCV for visualization and interaction. This project provides an interactive experience for detecting raised fingers and recognizing different hand positions, making it suitable for applications like gesture-controlled interfaces and interactive experiences.
 
 ## Directory Structure
 ```
