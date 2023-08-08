@@ -34,8 +34,8 @@ class Detector():
         Returns:
         numpy.ndarray: Image with drawn landmarks (if draw is True).
         """
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        self.results = self.hands.process(imgRGB)
+        # imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        self.results = self.hands.process(img)
         
         if self.results.multi_hand_landmarks and draw:
             for hand_landmarks in self.results.multi_hand_landmarks:

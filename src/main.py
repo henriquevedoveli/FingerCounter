@@ -1,7 +1,7 @@
 import cv2
 import time
 import os
-import src.handTracking as ht
+import handTracking as ht
 
 def setup_camera(width=640, height=480, cam_source=0):
     """
@@ -74,43 +74,34 @@ def draw_text(img, text, position, font_scale=2, thickness=2, color=(255, 0, 0))
     cv2.putText(img, text, position, cv2.FONT_HERSHEY_PLAIN, font_scale, color, thickness)
 
 def main():
-    """
-    Main function to run the finger counting and gesture recognition.
-
-    Returns:
-    None
-    """
-    wCam, hCam = 640, 480
-    detectionCon = 0.7
-
-    cap = setup_camera(wCam, hCam)
-    detector = ht.Detector(detectionCon=detectionCon)
-    
     pTime = 0
+    cTime = 0
+    cap = cv2.VideoCapture(0)
+    detector = Detector()
 
     while True:
-        success, img = cap.read()
-        img = detector.findHands(img)
+        ret, img = cap.read()
+        if not ret:  # Verifica se a captura de vídeo falhou
+            print("Falha na captura de vídeo.")
+            continue
+
         img = cv2.flip(img, 1)
+        img = detector.findHands(img)
         lmList = detector.findPosition(img, draw=False)
-
         if len(lmList) != 0:
-            fingers, hand = detect_fingers(detector, lmList)
-            totalFingers = fingers.count(1)
-
-            draw_text(img, f'Number: {totalFingers}', (70, 70))
-            if hand[0] == 0:
-                draw_text(img, 'Left Hand', (400, 420))
-            elif hand[0] == 1:
-                draw_text(img, 'Right Hand', (400, 420))
+            print(lmList)
 
         cTime = time.time()
         fps = 1 / (cTime - pTime)
         pTime = cTime
-        draw_text(img, f'FPS: {int(fps)}', (400, 70))
+        cv2.putText(img, str(int(fps)), (10, 70), cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 0), 3)
 
         cv2.imshow("Image", img)
-        cv2.waitKey(1)
+        if cv2.waitKey(1) & 0xFF == 27:  # Pressione 'ESC' para sair do loop
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
